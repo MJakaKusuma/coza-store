@@ -1,0 +1,193 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #2d3436;
+  color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: #dfe6e9;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  color: #d4af7a;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.navbar h1 {
+  font-size: 24px;
+}
+
+.alert {
+  background-color: #dff0d8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* === Table Style === */
+.table-container {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: -8px -8px 15px rgba(255,255,255,0.4),
+              8px 8px 15px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f4f4f4;
+}
+
+thead th {
+  text-align: left;
+  padding: 12px 15px;
+  font-size: 15px;
+  color: #555;
+}
+
+tbody tr {
+  transition: 0.3s ease-in-out;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+tbody td {
+  padding: 12px 15px;
+  font-size: 14px;
+  color: #333;
+  vertical-align: top;
+  border-top: 1px solid #eee;
+}
+
+/* === Select dropdown styling === */
+.select-status {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Optional: Style badge-like status */
+.status-badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+}
+
+.status-pending {
+  background-color: #f39c12;
+}
+
+.status-approved {
+  background-color: #3498db;
+}
+
+.status-reject {
+  background-color: #e74c3c;
+}
+
+.status-completed {
+  background-color: #2ecc71;
+}
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    padding: 15px;
+  }
+
+  table {
+    font-size: 13px;
+    min-width: 600px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 10px 12px;
+  }
+
+  .select-status {
+    font-size: 13px;
+    width: 100%;
+  }
+
+  .status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    display: none;
+  }
+
+  .admin-wrapper {
+    flex-direction: column;
+  }
+
+  .navbar h1 {
+    font-size: 18px;
+  }
+
+  .alert {
+    font-size: 13px;
+  }
+}
