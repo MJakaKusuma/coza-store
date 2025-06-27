@@ -48,7 +48,7 @@
           @php
         $sidebarSubtotal = $item['price'] * $item['quantity'];
         $sidebarTotal += $sidebarSubtotal;
-      @endphp
+        @endphp
           <li class="header-cart-item flex-w flex-t m-b-12">
           <div class="header-cart-item-img">
             <img src="{{ asset('storage/' . $item['image']) }}" alt="IMG">
@@ -115,7 +115,7 @@
             @php
         $mainCartTotal = 0;
         $cartItems = session()->get('cart', []); // Re-fetch or use the already defined $cartItems
-      @endphp
+        @endphp
 
             @if (!empty($cartItems))
           <form action="{{ route('cart.update') }}" method="POST">
@@ -254,7 +254,18 @@
                     <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode"
                       placeholder="Postcode / Zip">
                   </div>
+                  <div class="m-b-20">
 
+                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12">
+                      <select class="js-select2" name="payment_method" required>
+                        <option value="">-- Pilih Metode Pembayaran --</option>
+                        <option value="bank_transfer">Transfer Bank</option>
+                        <option value="cod">Bayar di Tempat (COD)</option>
+                        <option value="ewallet">Dompet Digital (OVO, DANA, dll)</option>
+                      </select>
+                      <div class="dropDownSelect2"></div>
+                    </div>
+                  </div>
                   <button type="submit"
                     class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
                     Update Totals

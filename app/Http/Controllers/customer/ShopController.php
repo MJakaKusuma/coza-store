@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -14,13 +15,17 @@ class ShopController extends Controller
 
     public function index()
     {
-        $products = Product::with('category')->latest()->get(); // eager load
-        return view('shop.index', compact('products'));
+        $products = Product::with('category', 'comments')->latest()->get();
+        $categories = Category::all(); // tambahkan ini
+
+        return view('shop.index', compact('products', 'categories'));
     }
+    // ShopController.php
     public function view()
     {
-        $products = Product::with(relations: 'category')->latest()->get(); // eager load
-        return view('shop.shop', compact('products'));
+        $categories = \App\Models\Category::all();
+        $products = Product::with('category')->latest()->get();
+        return view('shop.shop', compact('products', 'categories'));
     }
 
     public function cart()
@@ -118,6 +123,13 @@ class ShopController extends Controller
             ->get();
 
         return view('shop.success', compact('orders'));
+    }
+    // File: app/Http/Controllers/Customer/ShopController.php
+
+    public function show($id)
+    {
+        $product = Product::with('category', 'comments')->findOrFail($id);
+        return view('shop.show', compact('product'));
     }
 
 }

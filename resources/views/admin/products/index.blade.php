@@ -54,11 +54,20 @@
           <h3>{{ $product->name }}</h3>
           <p class="price">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
           <p class="meta">{{ ucfirst($product->gender) }} | {{ ucfirst($product->category->name ?? '-') }}</p>
+          <p class="meta">Stok:
+          <form action="{{ route('products.updateStock', $product->id) }}" method="POST"
+            style="display: inline-flex; align-items: center; gap: 6px;">
+            @csrf
+            @method('PATCH')
+            <input type="number" name="stock" value="{{ $product->stock }}" min="0"
+            style="width: 60px; padding: 3px 6px; font-size: 0.9em;">
+            <button type="submit" class="btn-action update">Update</button>
+          </form>
+          </p>
           <small class="text-muted">Ditambahkan: {{ $product->created_at->format('d M Y') }}</small>
 
           <div class="actions">
             <a href="{{ route('products.edit', $product->id) }}" class="btn-action edit">Edit</a>
-
             <form action="{{ route('products.destroy', $product->id) }}" method="POST"
             onsubmit="return confirm('Yakin ingin menghapus produk ini?')" style="display:inline;">
             @csrf
@@ -67,6 +76,7 @@
             </form>
           </div>
           </div>
+
         </div>
     @empty
       <p class="text-center">Belum ada produk.</p>

@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\OrderController; // ✅ Tambah ini
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Customer\ShopController;
 use App\Http\Controllers\AuthController;
 
@@ -19,7 +20,6 @@ Route::get('/', function () {
 Route::get('/home', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop', [ShopController::class, 'view'])->name('shop');
 
-
 // Auth
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -30,11 +30,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('products', ProductController::class);
-
-    // ✅ Tambahkan:
+    Route::patch('products/{product}/stock', [ProductController::class, 'updateStock'])->name('products.updateStock');
     Route::patch('orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
-
-    // ✅ Tambahkan ini juga agar halaman index-nya ada:
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
@@ -47,7 +44,9 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::post('/checkout', [ShopController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [ShopController::class, 'transactionHistory'])->name('orders.history');
 
+    // ✅ Rute inilah yang digunakan oleh form ulasan
+    Route::post('/product/{id}/comment', [CommentController::class, 'store'])->name('product.comment');
+    Route::get('/product/{id}', [ShopController::class, 'show'])->name('product.detail');
+
     Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
-
-
 });

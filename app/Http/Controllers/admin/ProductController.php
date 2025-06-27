@@ -41,7 +41,10 @@ class ProductController extends Controller
             'gender' => 'required|in:unisex,men,woman',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'stock' => 'required|integer|min:0',
+            'rating' => 'nullable|numeric|between:0,5',
         ]);
+
 
         // Upload file jika ada
         if ($request->hasFile('image')) {
@@ -75,6 +78,8 @@ class ProductController extends Controller
             'gender' => 'required|in:unisex,men,woman',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'stock' => 'required|integer|min:0',
+            'rating' => 'nullable|numeric|between:0,5',
         ]);
 
         // Jika gambar baru diunggah, hapus gambar lama dan simpan yang baru
@@ -154,4 +159,15 @@ class ProductController extends Controller
 
         return view('shop.index', compact('products', 'categories', 'sort', 'price', 'categoryId'));
     }
+    public function updateStock(Request $request, Product $product)
+    {
+        $request->validate([
+            'stock' => 'required|integer|min:0',
+        ]);
+
+        $product->update(['stock' => $request->stock]);
+
+        return redirect()->route('products.index')->with('success', 'Stok berhasil diperbarui.');
+    }
+
 }

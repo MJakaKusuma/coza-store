@@ -10,9 +10,11 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'image',
         'gender',
-        'category_id'
+        'category_id',
+        'image',
+        'stock',
+        'rating'
     ];
     public const GENDERS = ['unisex', 'men', 'woman'];
 
@@ -25,5 +27,15 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->comments()->avg('rating');
+    }
+
 }
 
